@@ -2,10 +2,9 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
 import Login from './components/Login';
 import Enquiries from './components/Enquiries';
+import Quotations from './components/Quotations';
+import SalesOrders from './components/SalesOrders';
 
-// Placeholder components for the other screens
-const Quotations = () => <div><h2>Quotations Screen (Coming Next)</h2></div>;
-const SalesOrders = () => <div><h2>Sales Orders Screen (Coming Next)</h2></div>;
 
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);

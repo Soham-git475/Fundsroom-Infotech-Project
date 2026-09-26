@@ -175,4 +175,15 @@ const dispatchOrder = async (req, res) => {
     }
 };
 
-module.exports = { convertToOrder, confirmOrder, dispatchOrder };
+// GET /sales-orders - View all Orders
+const getOrders = async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM sales_orders ORDER BY id DESC`);
+        res.json(result.rows);
+    } catch (err) {
+        console.error('Error fetching orders:', err);
+        res.status(500).json({ error: 'Server error while fetching orders' });
+    }
+};
+
+module.exports = { convertToOrder, confirmOrder, dispatchOrder, getOrders };

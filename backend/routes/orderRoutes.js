@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { convertToOrder, confirmOrder, dispatchOrder } = require('../controllers/orderController');
+const { convertToOrder, confirmOrder, dispatchOrder, getOrders } = require('../controllers/orderController');
 const { authenticate, authorize } = require('../middleware/authMiddleware');
 
 router.use(authenticate);
@@ -13,5 +13,8 @@ router.post('/:id/confirm', authorize(['ADMIN']), confirmOrder);
 
 // Only ADMIN can dispatch an order
 router.post('/:id/dispatch', authorize(['ADMIN']), dispatchOrder);
+
+// GET /sales-orders
+router.get('/', authorize(['ADMIN', 'SALES_USER']), getOrders);
 
 module.exports = router;

@@ -32,7 +32,6 @@ const Enquiries = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Hardcoding product IDs 1 and 2 to bypass complex UI selection
             const payload = {
                 ...formData,
                 items: [
@@ -44,7 +43,8 @@ const Enquiries = () => {
             setIsCreating(false);
             fetchEnquiries(); // Refresh the table
         } catch (err) {
-            alert('Error creating enquiry');
+            // This exposes the exact server-side error message
+            alert(err.response?.data?.error || err.message);
         }
     };
 
