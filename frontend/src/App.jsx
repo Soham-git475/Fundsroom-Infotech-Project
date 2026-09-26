@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
 import Login from './components/Login';
+import Enquiries from './components/Enquiries';
 
 // Placeholder components for the other screens
-const Enquiries = () => <div><h2>Enquiries Screen (Coming Next)</h2></div>;
 const Quotations = () => <div><h2>Quotations Screen (Coming Next)</h2></div>;
 const SalesOrders = () => <div><h2>Sales Orders Screen (Coming Next)</h2></div>;
 
