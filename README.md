@@ -28,3 +28,59 @@ DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=erp_db
 JWT_SECRET=your_jwt_secret_key
+
+## Database Schema (ER Diagram)
+
+```mermaid
+erDiagram
+    USERS {
+        int id PK
+        varchar name
+        varchar email
+        varchar role
+    }
+    CUSTOMERS {
+        int id PK
+        varchar company_name
+        varchar email
+        varchar mobile
+    }
+    PRODUCTS {
+        int id PK
+        varchar name
+        varchar sku
+        numeric price
+        int stock_quantity
+    }
+    ENQUIRIES {
+        int id PK
+        varchar enquiry_number
+        int customer_id FK
+        varchar status
+    }
+    ENQUIRY_ITEMS {
+        int id PK
+        int enquiry_id FK
+        int product_id FK
+        int quantity
+    }
+    QUOTATIONS {
+        int id PK
+        varchar quotation_number
+        int enquiry_id FK
+        numeric grand_total
+        varchar status
+    }
+    SALES_ORDERS {
+        int id PK
+        varchar order_number
+        int quotation_id FK
+        numeric total_amount
+        varchar status
+    }
+
+    CUSTOMERS ||--o{ ENQUIRIES : "has"
+    ENQUIRIES ||--|{ ENQUIRY_ITEMS : "contains"
+    PRODUCTS ||--o{ ENQUIRY_ITEMS : "included_in"
+    ENQUIRIES ||--o| QUOTATIONS : "generates"
+    QUOTATIONS ||--o| SALES_ORDERS : "converts_to"
