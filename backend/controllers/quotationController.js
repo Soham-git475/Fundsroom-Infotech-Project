@@ -104,4 +104,5 @@ const getQuotations = async (req, res) => {
     }
 };
 
-module.exports = { createQuotation, updateQuotationStatus };
+// The missing export has been added here:
+module.exports = { createQuotation, updateQuotationStatus, getQuotations };

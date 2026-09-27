@@ -13,7 +13,12 @@ const Quotations = () => {
     const fetchQuotations = async () => {
         try {
             const res = await api.get('/quotations');
-            setQuotations(res.data);
+            console.log("Raw Backend Data:", res.data); // This will help us see it!
+            
+            // Try to pull the array no matter how the backend wrapped it
+            const dataList = res.data.quotations || res.data.data || res.data;
+            
+            setQuotations(Array.isArray(dataList) ? dataList : []);
         } catch (err) {
             console.error('Failed to fetch quotations', err);
         }
@@ -23,7 +28,7 @@ const Quotations = () => {
         try {
             await api.post('/quotations', {
                 enquiry_id: parseInt(enquiryIdInput),
-                customer_id: 1,
+                customer_id: 1, // Hardcoded for demo purposes
                 valid_until: "2026-10-20",
                 items: [
                     { product_id: 1, quantity: 100, unit_price: 1500.00, discount_percent: 10, gst_percent: 18 },
@@ -33,7 +38,9 @@ const Quotations = () => {
             setIsCreating(false);
             fetchQuotations();
         } catch (err) {
-            alert(`Error creating quotation. Ensure Enquiry ID ${enquiryIdInput} exists.`);
+            // This will now show the EXACT error from your Node.js backend
+            const backendError = err.response?.data?.error || err.message;
+            alert(`Backend Error: ${backendError}`);
         }
     };
 
@@ -42,7 +49,7 @@ const Quotations = () => {
             await api.patch(`/quotations/${id}/status`, { status: 'ACCEPTED' });
             fetchQuotations();
         } catch (err) {
-            alert('Error updating status');
+            alert('Error updating status: ' + (err.response?.data?.error || err.message));
         }
     };
 

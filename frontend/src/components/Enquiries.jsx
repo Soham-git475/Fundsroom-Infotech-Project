@@ -83,7 +83,7 @@ const Enquiries = () => {
                 <tbody>
                     {enquiries.map(enq => (
                         <tr key={enq.id}>
-                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{enq.enquiry_number}</td>
+                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>ID: {enq.id} | {enq.enquiry_number}</td>
                             <td style={{ padding: '10px', border: '1px solid #ddd' }}>{enq.company_name}</td>
                             <td style={{ padding: '10px', border: '1px solid #ddd' }}>{new Date(enq.enquiry_date).toLocaleDateString()}</td>
                             <td style={{ padding: '10px', border: '1px solid #ddd', color: enq.status === 'NEW' ? 'blue' : 'green' }}>
